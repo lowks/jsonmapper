@@ -251,8 +251,8 @@ class DateTimeField(Field):
     def _to_python(self, value):
         if isinstance(value, basestring):
             try:
-                value = value.split('.', 1)[0] # strip out microseconds
-                value = value.rstrip('Z') # remove timezone separator
+                value = value.split('.', 1)[0]  # strip out microseconds
+                value = value.rstrip('Z')  # remove timezone separator
                 value = datetime(*strptime(value, '%Y-%m-%dT%H:%M:%S')[:6])
             except ValueError:
                 raise ValueError('Invalid ISO date/time %r' % value)
@@ -281,7 +281,7 @@ class TimeField(Field):
     def _to_python(self, value):
         if isinstance(value, basestring):
             try:
-                value = value.split('.', 1)[0] # strip out microseconds
+                value = value.split('.', 1)[0]  # strip out microseconds
                 value = time(*strptime(value, '%H:%M:%S')[3:6])
             except ValueError:
                 raise ValueError('Invalid ISO time %r' % value)
@@ -386,7 +386,7 @@ class TypedField(Field):
                     break
             else:
                 # FIXME better error message
-                 raise ValueError('Unknown value type')
+                raise ValueError('Unknown value type')
         else:
             value_type = value[self.type_key]
             mapping = self.mappings[value_type]
@@ -441,7 +441,6 @@ class ListField(Field):
 
     def _to_json(self, value):
         return [self.field._to_json(item) for item in value]
-
 
     class Proxy(list):
 
